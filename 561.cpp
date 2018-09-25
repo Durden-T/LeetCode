@@ -31,22 +31,18 @@ class Solution
   public:
     int findTilt(TreeNode *root)
     {
-        if (!root)
-            return 0;
-        sumUp(root);
-        helper(root);
+        GetTreeSum(root);
         return ans;
     }
 
   private:
-  void sumUp(TreeNode *root)
+    int GetTreeSum(TreeNode *root)
     {
         if (!root)
-            return;
-        sumUp(root->left);
-        sumUp(root->right);
-        root->val += root->left ? root->left->val : 0 + root->right ? root->right->val : 0;
-        if(root->)
-        ans+=abs(root->)
+            return 0;
+        int lSum = GetTreeSum(root->left);
+        int rSum = GetTreeSum(root->right);
+        ans += abs(lSum - rSum);
+        return lSum + root->val + rSum;
     }
 };
