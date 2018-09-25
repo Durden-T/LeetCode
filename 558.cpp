@@ -68,6 +68,6 @@ class Solution
             intersect(quadTree1->bottomRight, quadTree2->bottomRight);
         }
         return quadTree1;
-        //fucZasd
+        //fucZasdasdafaddas
     }
 };
