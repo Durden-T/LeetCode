@@ -23,9 +23,6 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
-{
-    "$id" : "1", "bottomLeft" : {"$id" : "4", "bottomLeft" : null, "bottomRight" : null, "isLeaf" : true, "topLeft" : null, "topRight" : null, "val" : true}, "bottomRight" : {"$id" : "5", "bottomLeft" : null, "bottomRight" : null, "isLeaf" : true, "topLeft" : null, "topRight" : null, "val" : false}, "isLeaf" : false, "topLeft" : {"$id" : "2", "bottomLeft" : null, "bottomRight" : null, "isLeaf" : true, "topLeft" : null, "topRight" : null, "val" : true}, "topRight" : {"$id" : "3", "bottomLeft" : null, "bottomRight" : null, "isLeaf" : true, "topLeft" : null, "topRight" : null, "val" : true}, "val" : true
-}
 
 /*
 // Definition for a QuadTree node.
@@ -50,24 +47,25 @@ public:
     }
 };
 */
+
 class Solution
 {
   public:
-    Node *intersect(Node *quadTree1, Node *quadTree2)
+    Node *intersect(Node *q1, Node *q2)
     {
-        if (quadTree1->isLeaf || quadTree2->isLeaf)
-        {
-            quadTree1->isLeaf = true;
-            quadTree1->val = quadTree1->val || quadTree2->val;
-        }
-        else
-        {
-            intersect(quadTree1->topLeft, quadTree2->topLeft);
-            intersect(quadTree1->topRight, quadTree2->topRight);
-            intersect(quadTree1->bottomLeft, quadTree2->bottomLeft);
-            intersect(quadTree1->bottomRight, quadTree2->bottomRight);
-        }
-        return quadTree1;
-        //fucZasdasdafaddas
+        if (q1->isLeaf)
+            return q1->val ? new Node(true, true, nullptr, nullptr, nullptr, nullptr) : q2;
+        if (q2->isLeaf)
+            return q2->val ? new Node(true, true, nullptr, nullptr, nullptr, nullptr) : q1;
+
+        Node *t = new Node();
+        t->topLeft = intersect(q1->topLeft, q2->topLeft);
+        t->topRight = intersect(q1->topRight, q2->topRight);
+        t->bottomLeft = intersect(q1->bottomLeft, q2->bottomLeft);
+        t->bottomRight = intersect(q1->bottomRight, q2->bottomRight);
+
+        if (t->topLeft->isLeaf && t->topLeft->val && t->topRight->isLeaf && t->topRight->val && t->bottomLeft->isLeaf && t->bottomLeft->val && t->bottomRight->isLeaf && t->bottomRight->val)
+            t->val = t->isLeaf = true;
+        return t;
     }
 };
