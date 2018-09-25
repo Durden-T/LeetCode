@@ -26,12 +26,27 @@ static int __initialSetup = [] {
 
 class Solution
 {
+    int ans = 0;
+
   public:
-    int arrayPairSum(vector<int> &nums)
+    int findTilt(TreeNode *root)
     {
-        int ans = 0;
-        sort(nums.begin(), nums.end());
-        for (int i = 0; i < nums.size();i+=2)
-            ans += nums[i];
+        if (!root)
+            return 0;
+        sumUp(root);
+        helper(root);
         return ans;
+    }
+
+  private:
+  void sumUp(TreeNode *root)
+    {
+        if (!root)
+            return;
+        sumUp(root->left);
+        sumUp(root->right);
+        root->val += root->left ? root->left->val : 0 + root->right ? root->right->val : 0;
+        if(root->)
+        ans+=abs(root->)
+    }
 };
