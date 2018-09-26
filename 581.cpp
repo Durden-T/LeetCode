@@ -86,7 +86,7 @@ class Solution
 
             for (int r = nums.size() - 1; r >= 0; --r)
                 if (nums[r] <= min)
-                    min = nums[l];
+                    min = nums[r];
                 else
                     i = r;
 
