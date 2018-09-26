@@ -28,31 +28,17 @@ static int __initialSetup = [] {
 class Solution
 {
   public:
-    vector<double> averageOfLevels(TreeNode *root)
+    double findMaxAverage(vector<int> &nums, int k)
     {
-        vector<double> ans;
-        if (!root)
-            return ans;
-
-        queue<TreeNode *> q;
-        q.push(root);
-        int size;
-        while (size = q.size())
+        int cur = 0, sum;
+        for (int i = 0; i < k; ++i)
+            cur += nums[i];
+        sum = cur;
+        for (int i = k; i < nums.size(); ++i)
         {
-            int s = size;
-            double d = 0;
-            while (s--)
-            {
-                TreeNode *t = q.front();
-                q.pop();
-                d += t->val;
-                if (t->left)
-                    q.push(t->left);
-                if (t->right)
-                    q.push(t->right);
-            }
-            ans.push_back(d / size);
+            cur += nums[i] - nums[i - k];
+            sum = max(sum, cur);
         }
-        return ans;
+        return (double)sum / k;
     }
 };
