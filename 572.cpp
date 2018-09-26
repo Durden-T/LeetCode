@@ -29,26 +29,26 @@ class Solution
   public:
     bool isSubtree(TreeNode *s, TreeNode *t)
     {
-        if (!s && !t)
-            return true;
-        if (!s || !t)
-            return false;
-        bool ans = isSubtree(s->left, t) || isSubtree(s->right, t);
-        if (s->val == t->val)
-            ans |= isSubtree(s->left, t->left) && isSubtree(s->right, t->right);
-        return ans;
-    }
-};
+        return s && (equal(s, t) || isSubtree(s->left, t) || isSubtree(s->right, t));
 
-class Solution
-{
-  public:
-    bool isSubtree(TreeNode *s, TreeNode *t)
+        /*string tree1 = preorder(s);
+        string tree2 = preorder(t);
+        return tree1.find(tree2) != string::npos;*/
+    }
+
+  private:
+    bool equal(TreeNode *s, TreeNode *t)
     {
         if (!s && !t)
             return true;
         if (!s || !t)
             return false;
-        return s->val == t->val ? isSubtree(s->left, t->left) && isSubtree(s->right, t->right) || isSubtree(s->left, t) || isSubtree(s->right, t) : isSubtree(s->left, t) || isSubtree(s->right, t);
+        return s->val == t->val && equal(s->left, t->left) && equal(s->right, t->right);
+    }
+    string preorder(TreeNode *t)
+    {
+        if (!t)
+            return "e";
+        return "#" + to_string(t->val) + " " + preorder(t->left) + " " + preorder(t->right);
     }
 };
