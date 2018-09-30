@@ -24,22 +24,3 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
-
-class Solution
-{
-  public:
-    vector<int> selfDividingNumbers(int left, int right)
-    {
-        vector<int> ans;
-        while (left <= right)
-        {
-            int t = left;
-            while (t % 10 && !(left % (t % 10)))
-                t /= 10;
-            if (!t)
-                ans.push_back(left);
-            ++left;
-        }
-        return ans;
-    }
-};

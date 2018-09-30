@@ -28,18 +28,9 @@ static int __initialSetup = [] {
 class Solution
 {
   public:
-    vector<int> selfDividingNumbers(int left, int right)
+    char nextGreatestLetter(vector<char> &letters, char target)
     {
-        vector<int> ans;
-        while (left <= right)
-        {
-            int t = left;
-            while (t % 10 && !(left % (t % 10)))
-                t /= 10;
-            if (!t)
-                ans.push_back(left);
-            ++left;
-        }
-        return ans;
+        auto it = upper_bound(letters.begin(), letters.end(), target);
+        return it == letters.end() ? letters[0] : t;
     }
 };

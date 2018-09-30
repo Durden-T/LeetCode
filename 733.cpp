@@ -28,18 +28,18 @@ static int __initialSetup = [] {
 class Solution
 {
   public:
-    vector<int> selfDividingNumbers(int left, int right)
+    int color = -1;
+    vector<vector<int>> floodFill(vector<vector<int>> &image, int sr, int sc, int newColor)
     {
-        vector<int> ans;
-        while (left <= right)
-        {
-            int t = left;
-            while (t % 10 && !(left % (t % 10)))
-                t /= 10;
-            if (!t)
-                ans.push_back(left);
-            ++left;
-        }
-        return ans;
+        if (color == -1)
+            color = image[sr][sc];
+        if ( sr == -1 || sr == image.size() || sc == -1 || sc == image[0].size() || image[sr][sc] != color || color == newColor)
+            return image;
+        image[sr][sc] = newColor;
+        floodFill(image, sr - 1, sc, newColor);
+        floodFill(image, sr + 1, sc, newColor);
+        floodFill(image, sr, sc - 1, newColor);
+        floodFill(image, sr, sc + 1, newColor);
+        return image;
     }
 };
