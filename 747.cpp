@@ -28,11 +28,18 @@ static int __initialSetup = [] {
 class Solution
 {
   public:
-    int minCostClimbingStairs(vector<int> &cost)
+    int dominantIndex(vector<int> &nums)
     {
-        int dp[cost.size() + 1]={0,0};
-        for (int i = 2; i <= cost.size(); ++i)
-            dp[i] = min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 1]);
-        return dp[cost.size()];
+        int max = -1, maxi;
+        for (int i = 0; i < nums.size(); ++i)
+            if (nums[i] > max)
+            {
+                max = nums[i];
+                maxi = i;
+            }
+        for (int i : nums)
+            if (i != max && 2 * i > max)
+                return -1;
+        return maxi;
     }
 };
