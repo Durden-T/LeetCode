@@ -26,17 +26,27 @@ static int __initialSetup = [] {
 
 class Solution
 {
+    int first;
+    int second = -1;
+
   public:
-    TreeNode *trimBST(TreeNode *root, int L, int R)
+    int findSecondMinimumValue(TreeNode *root)
     {
         if (!root)
-            return nullptr;
-        if (root->val < L)
-            return trimBST(root->right, L, R);
-        if (root->val > R)
-            return trimBST(toor->left, L, R);
-        root->left = trimBST(root->left, L, R);
-        root->right = trimBST(root->right, L, R);
-        return root;
+            return -1;
+        first = root->val;
+        helper(root);
+        return second;
+    }
+
+  private:
+    void helper(TreeNode *root)
+    {
+        if (!root)
+            return;
+        if (root->val != first)
+            second = second != -1 ? min(second, root->val) : root->val;      
+        helper(root->left);
+        helper(root->right);
     }
 };
