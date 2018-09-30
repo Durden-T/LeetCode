@@ -17,7 +17,6 @@
 #include <numeric>
 #include <bitset>
 
-
 using namespace std;
 
 static int __initialSetup = [] {
@@ -29,10 +28,18 @@ static int __initialSetup = [] {
 class Solution
 {
   public:
-    string toLowerCase(string str)
+    bool isOneBitCharacter(vector<int> &bits)
     {
-        for(char &c:str)
-            c=tolower(c);
-        return str;
+        return helper(bits, 0);
+    }
+
+  private:
+    bool helper(vector<int> &bits, int i)
+    {
+        if (i == bits.size() - 1)
+            return true;
+        if (i >= bits.size())
+            return false;
+        return bits[i] ? helper(bits, i + 2) : helper(bits, i + 1);
     }
 };
