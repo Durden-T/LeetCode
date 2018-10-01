@@ -28,14 +28,14 @@ static int __initialSetup = [] {
 class Solution
 {
   public:
-    vector<vector<int>> flipAndInvertImage(vector<vector<int>> &A)
+    ListNode *middleNode(ListNode *head)
     {
-        for (auto &row : A)
+        ListNode *slow = head, *fast = head;
+        while (fast && fast->next)
         {
-            reverse(row.begin(), row.end());
-            for (int &i : row)
-                i ^= 1;
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        return A;
+        return slow;
     }
 };
