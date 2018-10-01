@@ -44,7 +44,7 @@ class Solution
         }
         else if (choose == 1)
         {
-            return A.size() == B.size() && (A + A).find(B);
+            return A.size() == B.size() && (A + A).find(B) != string::npos;
         }
     }
 };
