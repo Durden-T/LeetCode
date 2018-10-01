@@ -24,3 +24,12 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+
+class Solution
+{
+  public:
+    int peakIndexInMountainArray(vector<int> &A)
+    {
+        return distance(A.begin(), is_sorted_until(A.begin(), A.end()));
+    }
+};
