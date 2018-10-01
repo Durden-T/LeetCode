@@ -30,5 +30,24 @@ class Solution
   public:
     bool leafSimilar(TreeNode *root1, TreeNode *root2)
     {
+        vector<int> a, b;
+        if(root1)
+            helper(root1, a);
+        if(root2)
+            helper(root2, b);
+        return a == b;
+    }
+    private:
+    void helper(TreeNode *root,vector<int> ans)
+    {
+        if(!root->left&&!root->right)
+            ans.push_back(root->val);
+        else
+        {
+            if (root->left)
+                helper(root->left, ans);
+            if(root->right)
+                helper(root->right, ans);
+        } 
     }
 };

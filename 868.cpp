@@ -41,7 +41,7 @@ class Solution
                     ans = max(ans, i - last);
                     last = i;
                 }
-            N >>= 2;
+            N >>= 1;
         }
         return ans;
     }
