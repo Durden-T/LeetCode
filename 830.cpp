@@ -24,3 +24,22 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+
+class Solution
+{
+  public:
+    vector<vector<int>> largeGroupPositions(string S)
+    {
+        vector<vector<int>> ans;
+        for (int i = 0; i < (int)S.size() - 2; ++i)
+        {
+            int j = i;
+            while (j < S.size() && S[j] == S[i])
+                ++j;
+            if (j-- - i > 2)
+                ans.push_back({i, j});
+            i = j;
+        }
+        return ans;
+    }
+};
