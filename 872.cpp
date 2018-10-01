@@ -28,14 +28,7 @@ static int __initialSetup = [] {
 class Solution
 {
   public:
-    vector<vector<int>> flipAndInvertImage(vector<vector<int>> &A)
+    bool leafSimilar(TreeNode *root1, TreeNode *root2)
     {
-        for (auto &row : A)
-        {
-            reverse(row.begin(), row.end());
-            for (int &i : row)
-                i ^= 1;
-        }
-        return A;
     }
 };

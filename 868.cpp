@@ -31,11 +31,9 @@ class Solution
     int binaryGap(int N)
     {
         int ans = 0;
-
         for (int i = 0, last = -1; N; ++i)
         {
-            if (N % 2)
-            {
+            if (N & 1)
                 if (last == -1)
                     last = i;
                 else
@@ -43,8 +41,7 @@ class Solution
                     ans = max(ans, i - last);
                     last = i;
                 }
-            }
-            N /= 2;
+            N >>= 2;
         }
         return ans;
     }
