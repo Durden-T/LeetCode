@@ -24,3 +24,29 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+
+class Solution
+{
+  public:
+    bool backspaceCompare(string S, string T)
+    {
+        stack<char> a, b;
+        for (char c : S)
+            if (c == '#')
+            {
+                if (!a.empty())
+                    a.pop();
+            }
+            else
+                a.push(c);
+        for (char c : T)
+            if (c == '#')
+            {
+                if (!b.empty())
+                    b.pop();
+            }
+            else
+                b.push(c);
+        return a == b;
+    }
+};

@@ -24,3 +24,19 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+
+class Solution
+{
+  public:
+    int maxDistToClosest(vector<int> &seats)
+    {
+        int pre = -1, ans = 0;
+        for (int i = 0; i < seats.size(); ++i)
+            if (seats[i])
+            {
+                ans = max(ans, pre >= 0 ? (i - pre) / 2 : i);
+                pre = i;
+            }
+        return max(ans, (int)seats.size() - 1 - pre);
+    }
+};
