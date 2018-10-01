@@ -28,14 +28,19 @@ static int __initialSetup = [] {
 class Solution
 {
   public:
-    vector<vector<int>> flipAndInvertImage(vector<vector<int>> &A)
+    vector<string> uncommonFromSentences(string A, string B)
     {
-        for (auto &row : A)
-        {
-            reverse(row.begin(), row.end());
-            for (int &i : row)
-                i ^= 1;
-        }
-        return A;
+        istringstream sa(A), sb(B);
+        unordered_map<string, int> m;
+        string t;
+        while (sa >> t)
+            ++m[t];
+        while (sb >> t)
+            ++m[t];
+        vector<string> ans;
+        for (auto &p : m)
+            if (p.second == 1)
+                ans.push_back(p.first);
+        return ans;
     }
 };
