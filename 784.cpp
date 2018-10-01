@@ -46,6 +46,6 @@ class Solution
         }
         helper(S, i + 1, path + S[i]);
         if (isalpha(S[i]))
-            helper(S, i + 1, islower(S[i]) ? path + (char)toupper(S[i]) : path + (char)toupper(S[i]));
+            helper(S, i + 1, islower(S[i]) ? path + (char)toupper(S[i]) : path + (char)tolower(S[i]));
     }
 };
