@@ -30,23 +30,6 @@ class Solution
   public:
     vector<int> shortestToChar(string S, char C)
     {
-        vector<int> ans(S.size(), S.size());
-        int pos = -S.size();
-        for (int i = 0; i < S.size(); ++i)
-        {
-            if (S[i] == C)
-                pos = i;
-            ans[i] = i - pos;
-        }
-        for (int i = S.size() - 1; i >= 0; --i)
-        {
-            if (S[i] == C)
-                pos = i;
-            ans[i] = min(ans[i], abs(i - pos));
-        }
-        return ans;
-
-
         vector<int> ans(S.size(), INT_MAX);
         int i = 0;
 
