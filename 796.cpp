@@ -24,3 +24,27 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+
+class Solution
+{
+  public:
+    bool rotateString(string A, string B)
+    {
+        int choose = 1;
+        if (choose == 0)
+        {
+            if (A.size() != B.size())
+                return false;
+            if (A == B)
+                return true;
+            for (int i = 1; i < A.size(); ++i)
+                if (A.substr(i) + A.substr(0, i) == B)
+                    return true;
+            return false;
+        }
+        else if (choose == 1)
+        {
+            return A.size() == B.size() && (A + A).find(B);
+        }
+    }
+};
