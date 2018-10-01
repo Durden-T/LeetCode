@@ -30,24 +30,28 @@ class Solution
   public:
     string mostCommonWord(string paragraph, vector<string> &banned)
     {
+        unordered_map<string, int> M;
+        int count = 0;
+        string s, ans;
+
         for (string &s : banned)
             for (char &c : s)
                 c = tolower(c);
-        string dic;
-        for (char c : paragraph)
-            dic += isalpha(c) ? tolower(c) : ' ';
-        istringstream ss(dic);
-        string s;
-        unordered_map<string, int> M;
+
         for (string &s : banned)
             M[s] = INT_MIN;
-        int count = 0;
-        string ans;
-        while (ss >> s)
-            if (++M[s] > count)
+        paragraph += ' ';
+        for (char c : paragraph)
+            if (isalpha(c))
+                s += tolower(c);
+            else if (!s.empty())
             {
-                count = M[s];
-                ans = s;
+                if (++M[s] > count)
+                {
+                    count = M[s];
+                    ans = s;
+                }
+                s.clear();
             }
         return ans;
     }
