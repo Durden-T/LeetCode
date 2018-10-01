@@ -30,5 +30,13 @@ class Solution
   public:
     vector<int> fairCandySwap(vector<int> &A, vector<int> &B)
     {
+        int suma = accumulate(A.begin(), A.end(), 0), sumb = accumulate(B.begin(), B.end(), 0);
+        unordered_set<int> mapb(B.begin(),B.end());
+        for (int i : A)
+        {
+            int candidateb = (sumb - suma + 2 * A[i]) / 2;
+            if (mapb.count(candidateb))
+                return {i, candidateb};
+        }
     }
 };
