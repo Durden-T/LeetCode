@@ -24,28 +24,3 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
-
-class Solution
-{
-    vector<string> ans;
-
-  public:
-    vector<string> letterCasePermutation(string S)
-    {
-        helper(S, 0, "");
-        return ans;
-    }
-
-  private:
-    void helper(string S, int i, string path)
-    {
-        if (i == S.size())
-        {
-            ans.push_back(path);
-            return;
-        }
-        helper(S, i + 1, path + S[i]);
-        if (isalpha(S[i]))
-            helper(S, i + 1, islower(S[i]) ? path + (char)toupper(S[i]) : path + (char)toupper(S[i]));
-    }
-};
