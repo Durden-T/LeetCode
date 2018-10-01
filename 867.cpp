@@ -28,14 +28,12 @@ static int __initialSetup = [] {
 class Solution
 {
   public:
-    vector<vector<int>> flipAndInvertImage(vector<vector<int>> &A)
+    vector<vector<int>> transpose(vector<vector<int>> &A)
     {
-        for (auto &row : A)
-        {
-            reverse(row.begin(), row.end());
-            for (int &i : row)
-                i ^= 1;
-        }
-        return A;
+        vector<vector<int>> B(A[0].size(), vector<int>(A.size()));
+        for (int j = 0; j < A[0].size(); ++j)
+            for (int i = 0; i < A.size(); ++i)
+                B[j][i] = A[i][j];
+        return B;
     }
 };
