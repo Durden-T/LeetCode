@@ -28,14 +28,20 @@ static int __initialSetup = [] {
 class Solution
 {
   public:
-    vector<vector<int>> flipAndInvertImage(vector<vector<int>> &A)
+    // HINT: all you need to do is get an encoding for each string such that
+    // the even and odd indices are separated and the order in left or in right doesnt matter
+    // finally use a map or a set to get the final number
+    int numSpecialEquivGroups(vector<string> &A)
     {
-        for (auto &row : A)
+        set<vector<int>> res;
+        int C = A[0].size();
+        for (int i = 0; i < A.size(); ++i)
         {
-            reverse(row.begin(), row.end());
-            for (int &i : row)
-                i ^= 1;
+            vector<int> freq(52, 0);
+            for (int j = 0; j < C; ++j)
+                ++freq[A[i][j] - 'a' + (26 * (j % 2))];
+            res.insert(freq);
         }
-        return A;
+        return res.size();
     }
 };
