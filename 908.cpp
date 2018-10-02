@@ -28,14 +28,9 @@ static int __initialSetup = [] {
 class Solution
 {
   public:
-    vector<vector<int>> flipAndInvertImage(vector<vector<int>> &A)
+    int smallestRangeI(vector<int> &A, int K)
     {
-        for (auto &row : A)
-        {
-            reverse(row.begin(), row.end());
-            for (int &i : row)
-                i ^= 1;
-        }
-        return A;
+        auto p = minmax_element(A.begin(), A.end());
+        return max(*p.second - *p.first - 2 * K, 0);
     }
 };
