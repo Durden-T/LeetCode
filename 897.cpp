@@ -25,17 +25,34 @@ static int __initialSetup = [] {
     return 0;
 }();
 
+/*class Solution
+{
+  public:
+    TreeNode *increasingBST(TreeNode *root)
+    {
+        if (root->right)
+            root->right = increasingBST(root->right);
+        if (!root->left)
+            return root;
+        TreeNode *head = increasingBST(root->left), *t = head;
+        root->left = nullptr;
+        while (t->right)
+            t = t->right;
+        t->right = root;
+        return head;
+    }
+};*/
+
 class Solution
 {
   public:
-    vector<vector<int>> flipAndInvertImage(vector<vector<int>> &A)
+    TreeNode *increasingBST(TreeNode *root, TreeNode *tail = nullptr)
     {
-        for (auto &row : A)
-        {
-            reverse(row.begin(), row.end());
-            for (int &i : row)
-                i ^= 1;
-        }
-        return A;
+        if (!root)
+            return tail;
+        TreeNode *ans = increasingBST(root->left, root);
+        root->left = nullptr;
+        root->right = increasingBST(root->right, tail);
+        return ans;
     }
 };
