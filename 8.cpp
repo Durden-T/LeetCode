@@ -25,3 +25,31 @@ static int __initialSetup = [] {
     return 0;
 }();
 
+class Solution
+{
+  public:
+    int myAtoi(string str)
+    {
+        if (str.empty())
+            return 0;
+        bool negative = false;
+        int i = 0;
+        long long ans = 0;
+        while (str[i] == ' ')
+            ++i;
+        if (str[i] == '-')
+            negative = true;
+        else if (isdigit(str[i]))
+            ans = str[i] - '0';
+        else if (str[i] != '+')
+            return 0;
+        ++i;
+        while (i < str.size() && (isdigit(str[i])))
+        {
+            ans = 10 * ans + str[i++] - '0';
+            if (ans > INT_MAX)
+                return negative ? INT_MIN : INT_MAX;
+        }
+        return negative ? -ans : ans;
+    }
+};
