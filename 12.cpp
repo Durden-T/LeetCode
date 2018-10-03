@@ -25,23 +25,3 @@ static int __initialSetup = [] {
     return 0;
 }();
 
-class Solution
-{
-  public:
-    bool hasGroupsSizeX(vector<int> &deck)
-    {
-        int m[10001] = {};
-        for (int i : deck)
-            ++m[i];
-        int g = -1;
-        for (int i = 1; i < 10001; ++i)
-            g = g == -1 ? m[i] : gcd(g, m[i]);
-        return g != 1;
-    }
-
-  private:
-    int gcd(int x, int y)
-    {
-        return x ? gcd(y % x, x) : y;
-    }
-};
