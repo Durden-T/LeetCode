@@ -24,25 +24,3 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
-
-class Solution
-{
-  public:
-    ListNode *deleteDuplicates(ListNode *head)
-    {
-        if (!head || !head->next)
-            return head;
-        ListNode *t = head->next;
-        if (t->val != head->val)
-        {
-            head->next = deleteDuplicates(t);
-            return head;
-        }
-        else
-        {
-            while (t && t->val == head->val)
-                t = t->next;
-            return deleteDuplicates(t);
-        }
-    }
-};

@@ -28,21 +28,28 @@ static int __initialSetup = [] {
 class Solution
 {
   public:
-    ListNode *deleteDuplicates(ListNode *head)
+    // iterative
+    ListNode *reverseList1(ListNode *head)
+    {
+        ListNode *prev = nullptr;
+        while (head)
+        {
+            ListNode *nxt = head->next;
+            head->next = prev;
+            prev = head;
+            head = nxt;
+        }
+        return prev;
+    }
+
+    // recursive
+    ListNode *reverseList(ListNode *head)
     {
         if (!head || !head->next)
             return head;
-        ListNode *t = head->next;
-        if (t->val != head->val)
-        {
-            head->next = deleteDuplicates(t);
-            return head;
-        }
-        else
-        {
-            while (t && t->val == head->val)
-                t = t->next;
-            return deleteDuplicates(t);
-        }
+        ListNode *p = reverseList(head->next);
+        head->next->next = head;
+        head->next = nullptr;
+        return p;
     }
 };
