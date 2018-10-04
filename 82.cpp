@@ -25,3 +25,22 @@ static int __initialSetup = [] {
     return 0;
 }();
 
+class Solution
+{
+  public:
+    ListNode *deleteDuplicates(ListNode *head)
+    {
+        if (!head || !head->next)
+            return head;
+        ListNode *t = head->next;
+        while (t && t->val == head->val)
+            t = t->next;
+        if (t == head->next)
+        {
+            head->next = deleteDuplicates(t);
+            return head;
+        }
+        else
+            return deleteDuplicates(t);
+    }
+};
