@@ -24,3 +24,10 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        
+    }
+};
