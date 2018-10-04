@@ -28,14 +28,18 @@ static int __initialSetup = [] {
 class Solution
 {
   public:
-    int search(vector<int> &nums, int target)
+    bool search(vector<int> &nums, int target)
     {
         int l = 0, r = nums.size() - 1;
         while (l <= r)
         {
+            while (l < r && nums[l] == nums[l + 1])
+                ++l; // skip duplicates from the left
+            while (r > l && nums[r] == nums[r - 1])
+                --r; // skip duplicates from the right
             int mid = (l + r) / 2;
             if (nums[mid] == target)
-                return mid;
+                return true;
             if (nums[mid] > target)
                 if (nums[l] <= target || nums[mid] < nums[l])
                     r = mid - 1;
@@ -46,6 +50,6 @@ class Solution
             else
                 r = mid - 1;
         }
-        return -1;
+        return false;
     }
 };

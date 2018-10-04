@@ -25,3 +25,27 @@ static int __initialSetup = [] {
     return 0;
 }();
 
+class Solution
+{
+  public:
+    ListNode *rotateRight(ListNode *head, int k)
+    {
+        if (!head || !k || !head->next)
+            return head;
+        ListNode *tail = head, *tailPre = head, *pos = head;
+        int len = 0;
+        while (tail)
+        {
+            ++len;
+            tailPre = tail;
+            tail = tail->next;
+        }
+        int front = len - k % len;
+        while (--front)
+            pos = pos->next;
+        tailPre->next = head;
+        head = pos->next;
+        pos->next = nullptr;
+        return head;
+    }
+};
