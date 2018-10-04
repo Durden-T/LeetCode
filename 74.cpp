@@ -64,20 +64,20 @@ class Solution
         }
         else if (choose == 1)
         {
-            if (matrix.empty())
+            if (matrix.empty() || matrix[0].empty())
                 return false;
-
-            int row = 0;
-            int col = matrix[0].size() - 1;
-
-            while (row < matrix.size() && col >= 0)
+            int m = matrix.size(), n = matrix[0].size();
+            int start = 0, end = m * n - 1;
+            while (start <= end)
             {
-                if (matrix[row][col] == target)
-                    return true;
-                else if (matrix[row][col] > target)
-                    --col;
+                int mid = start + (end - start) / 2;
+                int e = matrix[mid / n][mid % n];
+                if (target < e)
+                    end = mid - 1;
+                else if (target > e)
+                    start = mid + 1;
                 else
-                    ++row;
+                    return true;
             }
             return false;
         }
