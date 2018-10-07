@@ -24,3 +24,24 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+
+class Solution
+{
+  public:
+    bool isPalindrome(int x)
+    {
+        if (x < 0 || !(x % 10) && x)
+            return false;
+        if (x < 10)
+            return true;
+        int y = 0;
+        while (x > y)
+        {
+            y = y * 10 + x % 10;
+            x = x / 10;
+            if (x == y || x == y / 10)
+                return true;
+        }
+        return false;
+    }
+};
