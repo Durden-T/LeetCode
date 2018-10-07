@@ -28,7 +28,15 @@ static int __initialSetup = [] {
 class Solution
 {
   public:
-    vector<int> productExceptSelf(vector<int> &nums)
+    vector<int> twoSum(vector<int> &nums, int target)
     {
+        unordered_map<int, int> table;
+        for (int i = 0; i < nums.size(); ++i)
+        {
+            auto it = table.find(target - nums[i]);
+            if (it != table.end())
+                return {it->second, i};
+            table.emplace(nums[i], i);
+        }
     }
 };

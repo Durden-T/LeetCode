@@ -35,16 +35,18 @@ class Solution
         {
             if (s.size() < 2)
                 return s;
-            bool dp[s.size()][s.size()] = {};
-            int max = 1, start = 0;
+            int size = 1, start;
+            bool dp[s.size()][s.size()];
             for (int i = 0; i < s.size(); ++i)
-                for (int j = 0; j <= i; ++j)
-                    if ((dp[j][i] = s[i] == s[j] && (i - j < 2 || dp[j + 1][i - 1])) && max < i - j + 1)
+                for (int j = i; j >= 0; --j)
+                {
+                    if ((dp[j][i] = s[i] == s[j] && (i - j < 2 || dp[j + 1][i - 1])) && i - j + 1 > size)
                     {
-                        max = i - j + 1;
                         start = j;
+                        size = i - j + 1;
                     }
-            return s.substr(start, max);
+                }
+            return s.substr(start, size);
         }
 
         else if (choose == 1)
@@ -71,8 +73,8 @@ class Solution
         int L = left, R = right;
         while (L >= 0 && R < s.size() && s[L] == s[R])
         {
-            L--;
-            R++;
+            --L;
+            ++R;
         }
         return R - L - 1;
     }
