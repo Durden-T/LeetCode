@@ -19,33 +19,42 @@
 
 using namespace std;
 
-static int __initialSetup = [] {
-    ios::sync_with_stdio(false); // toggle off cout & cin, instead, use printf & scanf
-    cin.tie(nullptr);            // untie cin & cout
-    return 0;
-}();
-
-class Solution
+void helper(vector<pair<int, int>> &s, vector<pair<int, int>> path, int pos, vector<vector<pair<int, int>>> &all)
 {
-  public:
-    bool checkPossibility(vector<int> &nums)
+    if (pos == s.size())
     {
-        if (nums.size() <= 2)
-            return true;
-        nums.emplace_back(INT_MAX);
-
-        bool modified = false;
-        for (int i = 0; i < nums.size() - 1; i++)
-            if (nums[i] > nums[i + 1])
-            {
-                if (modified)
-                    return false;
-                if (i && (nums[i + 1] < nums[i - 1]))
-                    nums[i + 1] = nums[i];
-                else
-                    nums[i] = nums[i + 1];
-                modified = true;
-            }
-        return true;
+        all.push_back(path);
+        return;
     }
-};
+    helper(s, path, pos + 1, all);
+    path.push_back(s[pos]);
+    helper(s, path, pos + 1, all);
+}
+
+int main()
+{
+    //vector<pair<int, int>> s{{0,0}};
+    //vector<pair<int, int>> s{{0, 0}, {0, 1}, {1, 0}, {1, 1}};
+    vector<pair<int, int>> s{{0, 0}, {0, 1}, {0,2},{1, 0}, {1, 1},{1,2},{2,0},{2,1},{2,2}};
+    vector<vector<pair<int, int>>> all, ans;
+    helper(s, {}, 0, all);
+    //all.push_back({{0, 1}, {1, 1}});
+    for (auto &v : all)
+    {
+        for (int i = 0; i < v.size(); ++i)
+            for (int j = 0; j < v.size(); ++j)
+                if (v[i].second == v[j].first)
+                {
+                    pair<int, int> t={v[i].first, v[j].second};
+                    if (find(v.begin(), v.end(), t) == v.end())
+                        goto end;
+                }
+        ans.push_back(v);
+    end:;
+    }
+    cout << ans.size() << endl;
+    getchar();
+    getchar();
+    getchar();
+    return 0;
+}
