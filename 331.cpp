@@ -24,3 +24,52 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+
+class Solution
+{
+  public:
+    bool isValidSerialization(string preorder)
+    {
+        int choose = 1;
+        if (choose == 0)
+        {
+            stack<string> s;
+            stringstream ss(preorder);
+            string t;
+            while (getline(ss, t, ','))
+            {
+                if (t != "#")
+                    s.push(t);
+                else
+                {
+                    while (!s.empty() && s.top() == "#")
+                    {
+                        s.pop();
+                        if (s.empty())
+                            return false;
+                        s.pop();
+                    }
+                    s.push("#");
+                }
+            }
+            return s.size() == 1 && s.top() == "#";
+        }
+
+        else if (choose == 1)
+        {
+            if (preorder.empty())
+                return false;
+            preorder += ',';
+            int capacity = 1;
+            for (int i = 0; i < preorder.size(); ++i)
+                if (preorder[i] == ',')
+                {
+                    if (--capacity < 0)
+                        return false;
+                    if (preorder[i - 1] != '#')
+                        capacity += 2;
+                }
+            return !capacity;
+        }
+    }
+};
