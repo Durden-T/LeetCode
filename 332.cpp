@@ -27,32 +27,27 @@ static int __initialSetup = [] {
 
 class Solution
 {
-    multimap<string, string> m;
-    vector<string> ans;
-    multimap<string, string>::iterator it;
+    unordered_map<string, multiset<string>> targets;
+    vector<string> route;
 
   public:
     vector<string> findItinerary(vector<pair<string, string>> tickets)
     {
-        sort(tickets.begin(), tickets.end());
-        for (auto &p : tickets)
-            m.insert(p);
-        vector<string> t = {"JFK"};
-        helper(t, tickets.size() + 1);
-        return ans;
+        for (auto ticket : tickets)
+            targets[ticket.first].insert(ticket.second);
+        visit("JFK");
+        return vector<string>(route.rbegin(), route.rend());
     }
-    void helper(vector<string> &t, int size)
+
+  private:
+    void visit(string airport)
     {
-        while (ans.empty() && (it = m.find(t.back())) != m.end())
+        while (!targets[airport].empty())
         {
-            t.push_back(it->second);
-            m.erase(it);
-            auto p = *it;
-            helper(t,size);
-            t.pop_back();
-            m.insert(p);
+            string next = *targets[airport].begin();
+            targets[airport].erase(targets[airport].begin());
+            visit(next);
         }
-        if (t.size() == size)
-            ans = t;
+        route.push_back(airport);
     }
 };
