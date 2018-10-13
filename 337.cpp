@@ -24,3 +24,42 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+
+class Solution
+{
+  public:
+    int rob(TreeNode *root)
+    {
+        if (!root)
+            return 0;
+        int
+        if (root->left && root->right)
+            return max(root->val + rob(root->left->left) + rob(root->left->right) + rob(root->right->left) + rob(root->right->right), rob(root->left) + rob(root->right));
+        if (!root->left && !root->right)
+            return root->val;
+        else
+            return max(root->val, rob(root->left ? root->left : root->right));
+    }
+};
+
+class Solution
+{
+  public:
+    int tryRob(TreeNode *root, int &l, int &r)
+    {
+        if (!root)
+            return 0;
+
+        int ll = 0, lr = 0, rl = 0, rr = 0;
+        l = tryRob(root->left, ll, lr);
+        r = tryRob(root->right, rl, rr);
+
+        return max(root->val + ll + lr + rl + rr, l + r);
+    }
+
+    int rob(TreeNode *root)
+    {
+        int l, r;
+        return tryRob(root, l, r);
+    }
+};
