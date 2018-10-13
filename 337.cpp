@@ -25,24 +25,59 @@ static int __initialSetup = [] {
     return 0;
 }();
 
-class Solution
+/**
+ * // This is the interface that allows for creating nested lists.
+ * // You should not implement it, or speculate about its implementation
+ * class NestedInteger {
+ *   public:
+ *     // Return true if this NestedInteger holds a single integer, rather than a nested list.
+ *     bool isInteger() const;
+ *
+ *     // Return the single integer that this NestedInteger holds, if it holds a single integer
+ *     // The result is undefined if this NestedInteger holds a nested list
+ *     int getInteger() const;
+ *
+ *     // Return the nested list that this NestedInteger holds, if it holds a nested list
+ *     // The result is undefined if this NestedInteger holds a single integer
+ *     const vector<NestedInteger> &getList() const;
+ * };
+ */
+class NestedIterator
 {
+    vector<int> ans;
+    vector<int>::iterator i = ans.begin();
+
   public:
-    int tryRob(TreeNode *root, int &l, int &r)
+    NestedIterator(vector<NestedInteger> &nestedList)
     {
-        if (!root)
-            return 0;
-
-        int ll = 0, lr = 0, rl = 0, rr = 0;
-        l = tryRob(root->left, ll, lr);
-        r = tryRob(root->right, rl, rr);
-
-        return max(root->val + ll + lr + rl + rr, l + r);
+        helper(nestedList);
     }
 
-    int rob(TreeNode *root)
+    int next()
     {
-        int l, r;
-        return tryRob(root, l, r);
+        return *i++;
+    }
+
+    bool hasNext()
+    {
+        return i !=ans.end();
+    }
+
+  private:
+    void helper(vector<NestedInteger> &nestedList)
+    {
+        for (auto &n : nestedList)
+        {
+            if (n.isInteger())
+                ans.push_back(n.getInteger());
+            else
+                helper(n.getList());
+        }
     }
 };
+
+/**
+ * Your NestedIterator object will be instantiated and called as such:
+ * NestedIterator i(nestedList);
+ * while (i.hasNext()) cout << i.next();
+ */
