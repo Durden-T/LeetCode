@@ -28,23 +28,6 @@ static int __initialSetup = [] {
 class Solution
 {
   public:
-    int rob(TreeNode *root)
-    {
-        if (!root)
-            return 0;
-        int
-        if (root->left && root->right)
-            return max(root->val + rob(root->left->left) + rob(root->left->right) + rob(root->right->left) + rob(root->right->right), rob(root->left) + rob(root->right));
-        if (!root->left && !root->right)
-            return root->val;
-        else
-            return max(root->val, rob(root->left ? root->left : root->right));
-    }
-};
-
-class Solution
-{
-  public:
     int tryRob(TreeNode *root, int &l, int &r)
     {
         if (!root)
