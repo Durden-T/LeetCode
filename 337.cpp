@@ -45,12 +45,13 @@ static int __initialSetup = [] {
 class NestedIterator
 {
     vector<int> ans;
-    vector<int>::iterator i = ans.begin();
+    vector<int>::iterator i;
 
   public:
     NestedIterator(vector<NestedInteger> &nestedList)
     {
         helper(nestedList);
+        i = ans.begin();
     }
 
     int next()
@@ -60,7 +61,7 @@ class NestedIterator
 
     bool hasNext()
     {
-        return i !=ans.end();
+        return i != ans.end();
     }
 
   private:
