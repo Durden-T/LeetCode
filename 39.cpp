@@ -35,15 +35,7 @@ class Solution
     {
         if (candidates.empty())
             return {};
-        if (candidates.size() == 1)
-        {
-            if (!(target % candidates[0]))
-                ans.emplace_back(target / candidates[0], candidates[0]);
-            return ans;
-        }
         sort(candidates.begin(), candidates.end());
-        if (candidates[0] > target)
-            return ans;
         helper(candidates, target, 0);
         return ans;
     }

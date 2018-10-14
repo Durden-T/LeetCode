@@ -27,9 +27,49 @@ static int __initialSetup = [] {
 
 class Solution
 {
+    int ans = 0;
+
   public:
     int combinationSum4(vector<int> &nums, int target)
     {
+        if(nums.empty())
+            return 0;
         
+    }
+};
+
+
+
+class Solution
+{
+    vector<vector<int>> ans;
+    vector<int> path;
+
+  public:
+    vector<vector<int>> combinationSum(vector<int> &candidates, int target)
+    {
+        if (candidates.empty())
+            return {};
+        sort(candidates.begin(), candidates.end());
+        if (candidates[0] > target)
+            return ans;
+        helper(candidates, target, 0);
+        return ans;
+    }
+
+  private:
+    void helper(vector<int> &a, int target, int start)
+    {
+        if (!target)
+        {
+            ans.push_back(path);
+            return;
+        }
+        for (int i = start; i < a.size() && a[i] <= target; ++i)
+        {
+            path.push_back(a[i]);
+            helper(a, target - a[i], i);
+            path.pop_back();
+        }
     }
 };
