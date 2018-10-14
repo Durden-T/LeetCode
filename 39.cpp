@@ -33,8 +33,6 @@ class Solution
   public:
     vector<vector<int>> combinationSum(vector<int> &candidates, int target)
     {
-        if (candidates.empty())
-            return {};
         sort(candidates.begin(), candidates.end());
         helper(candidates, target, 0);
         return ans;
