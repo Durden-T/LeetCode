@@ -28,8 +28,15 @@ static int __initialSetup = [] {
 class Solution
 {
   public:
-    int combinationSum4(vector<int> &nums, int target)
+    vector<int> sortArrayByParityII(vector<int> &A)
     {
-        
+        for (int i = 0, j = 1; i < A.size(); i += 2)
+            if (A[i] & 1)
+            {
+                while (A[j] & 1)
+                    j += 2;
+                swap(A[i], A[j]);
+            }
+        return A;
     }
 };

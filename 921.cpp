@@ -25,11 +25,4 @@ static int __initialSetup = [] {
     return 0;
 }();
 
-class Solution
-{
-  public:
-    int combinationSum4(vector<int> &nums, int target)
-    {
-        
-    }
-};
+
