@@ -19,46 +19,61 @@
 
 using namespace std;
 
-static int __initialSetup = [] {
+/*static int __initialSetup = [] {
     ios::sync_with_stdio(false); // toggle off cout & cin, instead, use printf & scanf
     cin.tie(nullptr);            // untie cin & cout
     return 0;
-}();
+}();*/
 
-class Solution
+//2.60
+unsigned replace_byte(unsigned x, int i, unsigned char b)
 {
-  public:
-    int kthSmallest(vector<vector<int>> &matrix, int k)
-    {
-        int choose = 0;
-        if (choose == 0)
-        {
-            priority_queue<int> pq;
-            for (int i = 0; i < matrix.size(); ++i)
-                for (int j = 0; j < matrix[0].size(); ++j)
-                {
-                    pq.push(matrix[i][j]);
-                    if (pq.size() > k)
-                        pq.pop();
-                }
-            return pq.top();
-        }
 
-        else if (choose == 1)
-        {
-            //https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/discuss/85238/Clean-solution-with-detailed-explanation-in-C++
-            int le = matrix[0][0], ri = matrix.back().back();
-            while (le < ri) //最后left会等于right
-            {
-                int mid = (le + ri) / 2, upToMid = 0;
-                for (int i = 0; i < matrix.size(); ++i)
-                    upToMid += upper_bound(matrix[i].begin(), matrix[i].end(), mid) - matrix[i].begin();
-                if (upToMid < k)
-                    le = mid + 1;
-                else //upToMid >= k
-                    ri = mid;
-            }
-            return le;
-        }
+    x &= ~(0xff << (i * 8));
+    x |= b << (i * 8);
+    return x;
+}
+//2.65
+int odd_ones(unsigned x)
+{
+    /*size_t count = 0;
+    ......
+    return count & 1;*/
+    int ans = 0;
+    while (x)
+    {
+        ++ans;
+        x &= x - 1;
     }
-};
+    return ans;
+}
+
+//2.67 b
+int int_size_is_32(void)
+{
+    int set_msb = 1 << 31, beyond_msb = set_msb * 2;
+    return set_msb && !beyond_msb;
+}
+
+//2.67 c
+/*int int_size_is_32(void)
+{
+    int set_msb = 1 << 15, beyond_msb = set_msb * 2, s = (beyond_msb >> 1) * beyond_msb, b = s * 2;
+    return set_msb && beyond_msb && s && !b;
+}*/
+
+//2.68 hehe
+int lower_one_mask(int n)
+{
+    const int w = sizeof(int) * 8;
+    int ans = INT_MAX;
+    n != w && (ans = INT_MAX >> (w - n - 1));
+    return ans;
+}
+int main()
+{
+    cout << hex << lower_one_mask(1);
+    getchar();
+    getchar();
+    return 0;
+}

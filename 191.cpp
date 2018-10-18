@@ -24,3 +24,32 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+class Solution
+{
+  public:
+    int hammingWeight(int n)
+    {
+        int choose = 1;
+        if (choose == 0)
+        {
+            int ans = 0;
+            while (n)
+            {
+                if (n & 1)
+                    ++ans;
+                n >>= 1;
+            }
+            return ans;
+        }
+        else if (choose == 1)
+        {
+            int ans = 0;
+            while (n)
+            {
+                ++ans;
+                n &= n - 1;
+            }
+            return ans;
+        }
+    }
+};
