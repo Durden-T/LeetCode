@@ -57,7 +57,64 @@ static int __initialSetup = [] {
 
 class Solution
 {
-    NestedInteger parse(const string &s, int &pos)
+
+  public:
+    NestedInteger deserialize(const string s)
+    {
+        int choose = 2;
+        if (choose == 0)
+        {
+            int pos = 0; //pos ALWAYS points to 1 position past the last parsed string;
+                         //This is an invariance maintained across the entire program.
+            return parse(s, pos);
+        }
+
+
+        else if (choose == 1)
+        {
+            istringstream in(s);
+            return deserialize(in);
+        }
+
+
+        else if (choose == 2)
+        {
+            auto isnumber = [](char c) { return c == '-' || isdigit(c); };
+
+            stack<NestedInteger> stk;
+            stk.push(NestedInteger());
+
+            for (auto it = s.begin(); it != s.end();)
+            {
+                const char c = *it;
+                if (isnumber(c))
+                {
+                    auto it2 = find_if_not(it, s.end(), isnumber);
+                    int val = stoi(string(it, it2));
+                    stk.top().add(NestedInteger(val));
+                    it = it2;
+                }
+                else
+                {
+                    if (c == '[')
+                        stk.push(NestedInteger());
+                    else if (c == ']')
+                    {
+                        NestedInteger ni = stk.top();
+                        stk.pop();
+                        stk.top().add(ni);
+                    }
+                    ++it;
+                }
+            }
+
+            NestedInteger ans = stk.top().getList().front();
+            return ans;
+        }
+    }
+
+  private:
+    NestedInteger parse(const string &s, int &pos) //0
     {
         if (s[pos] == '[')
             return parseList(s, pos);
@@ -90,28 +147,7 @@ class Solution
         return ni;
     }
 
-  public:
-    NestedInteger deserialize(const string s)
-    {
-        int pos = 0; //pos ALWAYS points to 1 position past the last parsed string;
-                     //This is an invariance maintained across the entire program.
-        return parse(s, pos);
-    }
-};
-
-
-
-class Solution
-{
-  public:
-    NestedInteger deserialize(string s)
-    {
-        istringstream in(s);
-        return deserialize(in);
-    }
-
-  private:
-    NestedInteger deserialize(istringstream &in)
+    NestedInteger deserialize(istringstream &in) //1
     {
         int number;
         if (in >> number)
@@ -127,46 +163,5 @@ class Solution
         }
         in.get();
         return list;
-    }
-};
-
-
-
-class Solution
-{
-  public:
-    NestedInteger deserialize(string s)
-    {
-        auto isnumber = [](char c) { return c == '-' || isdigit(c); };
-
-        stack<NestedInteger> stk;
-        stk.push(NestedInteger());
-
-        for (auto it = s.begin(); it != s.end();)
-        {
-            const char c = *it;
-            if (isnumber(c))
-            {
-                auto it2 = find_if_not(it, s.end(), isnumber);
-                int val = stoi(string(it, it2));
-                stk.top().add(NestedInteger(val));
-                it = it2;
-            }
-            else
-            {
-                if (c == '[')
-                    stk.push(NestedInteger());
-                else if (c == ']')
-                {
-                    NestedInteger ni = stk.top();
-                    stk.pop();
-                    stk.top().add(ni);
-                }
-                ++it;
-            }
-        }
-
-        NestedInteger ans = stk.top().getList().front();
-        return ans;
     }
 };
