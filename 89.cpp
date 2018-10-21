@@ -24,3 +24,18 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+
+class Solution
+{
+  public:
+    vector<int> grayCode(int n)
+    {
+        if (n <= 0)
+            return {0};
+        vector<int> ans = {0, 1};
+        for (int i = 1, k = 2; i < n; i++, k <<= 1)
+            for (int j = ans.size() - 1; j >= 0; j--)
+                ans.emplace_back(ans[j] + k);
+        return ans;
+    }
+};
