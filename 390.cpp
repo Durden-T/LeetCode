@@ -24,3 +24,12 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+
+class Solution
+{
+  public:
+    int lastRemaining(int n,bool flag=true)
+    {
+        return lastRemaining(n/2,false)+flag?
+    }
+};
