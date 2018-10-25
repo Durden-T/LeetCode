@@ -24,3 +24,26 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+
+class Solution
+{
+  public:
+    int maxRotateFunction(vector<int> &A)
+    {
+        if (A.size() < 2)
+            return 0;
+        int sum = 0, dp = 0;
+        for (int i = 0; i < A.size(); ++i)
+        {
+            sum += A[i];
+            dp += i * A[i];
+        }
+        int ans = max(INT_MIN, dp);
+        for (int i = 0; i < A.size(); ++i)
+        {
+            dp += sum - A.size() * A[A.size() - 1 - i];
+            ans = max(ans, dp);
+        }
+        return ans;
+    }
+};
