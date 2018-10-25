@@ -30,5 +30,14 @@ class Solution
   public:
     int integerReplacement(int n)
     {
+        return helper(n);
+    }
+
+  private:
+    long long helper(long long n)
+    {
+        if (n < 2)
+            return 0;
+        return n & 1 ? min(helper(n + 1), helper(n - 1)) + 1 : helper(n / 2) + 1;
     }
 };
