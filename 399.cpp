@@ -24,3 +24,16 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+
+class Solution
+{
+  public:
+    vector<double> calcEquation(vector<pair<string, string>> equations, vector<double> &values, vector<pair<string, string>> queries)
+    {
+        vector<double> ans;
+        for (int i = 0; i < values.size();++i)
+        {
+            less<pair<string, string>> a();
+        }
+    }
+};
