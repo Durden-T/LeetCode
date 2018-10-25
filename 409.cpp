@@ -24,3 +24,18 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+
+class Solution
+{
+  public:
+    int longestPalindrome(string s)
+    {
+        unordered_map<char, int> map;
+        int ans = 0;
+        for (char c : s)
+            ++map[c];
+        for (auto &i : map)
+            ans += i.second & 1 && ans & 1 ? i.second - 1 : i.second;
+        return ans;
+    }
+};
