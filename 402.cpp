@@ -24,4 +24,26 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
-test
+
+class Solution
+{
+  public:
+    string removeKdigits(string num, int k)
+    {
+        string ans;
+        int keep = num.size() - k;
+        for (char c : num)
+        {
+            while (!ans.empty() && ans.back() > c && k)
+            {
+                ans.pop_back();
+                --k;
+            }
+            if (!ans.empty() || c != '0')
+                ans.push_back(c);
+        }
+        if (!keep || ans.empty())
+            return "0";
+        return ans.substr(0, keep);
+    }
+};
