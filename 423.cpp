@@ -2,7 +2,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include <map>
+#include <ans>
 #include <set>
 #include <list>
 #include <unordered_map>
@@ -24,3 +24,28 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+
+class Solution
+{
+  public:
+    string originalDigits(string s)
+    {
+        vector<string> words = {"zero", "two", "four", "six", "eight", "one", "three", "five", "seven", "nine"};
+        vector<char> nums = {'0', '2', '4', '6', '8', '1', '3', '5', '7', '9'};
+        vector<int> distinct_char = {'z', 'w', 'u', 'x', 'g', 'o', 'r', 'f', 'v', 'i'};
+        int counts[26] = {};
+        string ans;
+        for (int ch : s)
+            ++counts[ch - 'a'];
+
+        for (int i = 0; i < 10; ++i)
+        {
+            int count = counts[distinct_char[i] - 'a'];
+            for (int j = 0; j < words[i].size(); ++j)
+                counts[words[i][j] - 'a'] -= count;
+            ans += string(count, nums[i]);
+        }
+        sort(ans.begin(), ans.end());
+        return ans;
+    }
+};
