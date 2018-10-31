@@ -24,3 +24,22 @@ static int __initialSetup = [] {
     cin.tie(nullptr);            // untie cin & cout
     return 0;
 }();
+
+
+class Solution
+{
+  public:
+    int characterReplacement(string s, int k)
+    {
+        int count[26] = {};
+        int start = 0, curMaxCount = 0, ans = 0;
+        for (int end = 0; end < s.size(); ++end)
+        {
+            curMaxCount = max(curMaxCount, ++count[s[end] - 'A']);
+            while (end - start + 1 - curMaxCount > k)
+                --count[s[start++] - 'A'];
+            ans = max(ans, end - start + 1);
+        }
+        return ans;
+    }
+};
