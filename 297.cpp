@@ -35,7 +35,6 @@ static int __initialSetup = [] {
  * };
  */
 
-
 class CodecStream
 {
   public:
@@ -155,8 +154,6 @@ class Codec
         return root;
     }
 };
-
-
 
 /**
 * Definition for a binary tree node.
