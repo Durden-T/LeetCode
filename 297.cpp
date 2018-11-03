@@ -147,7 +147,7 @@ class Codec
         if (!status)
             return nullptr;
         TreeNode *root = new TreeNode(0);
-        memcpy(&root->val, s.data() + pos, sizeof(root->val));
+        memcpy(&root->val, &s[pos], sizeof(root->val));
         pos += sizeof(root->val);
         root->left = (status & LEFT) ? deserialize(s, pos) : nullptr;
         root->right = (status & RIGHT) ? deserialize(s, pos) : nullptr;

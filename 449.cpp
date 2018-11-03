@@ -25,37 +25,48 @@ static int __initialSetup = [] {
     return 0;
 }();
 
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
 class Codec
 {
   public:
     // Encodes a tree to a single string.
     string serialize(TreeNode *root)
     {
-        ostringstream out;
-        serialize(root,out);
-        return out.str();
+        string data;
+        serialize(root, data);
+        return data;
     }
 
     // Decodes your encoded data to tree.
     TreeNode *deserialize(string data)
     {
-    }
-};
-private:
-    void serialize(TreeNode *root,ostringstream out)
-    {
-        
+        int pos = 0;
+        return deserialize(data, pos, INT_MIN, INT_MAX);
     }
 
-// Your Codec object will be instantiated and called as such:
-// Codec codec;
-// codec.deserialize(codec.serialize(root));
+  private:
+    void serialize(TreeNode *root, string &data)
+    {
+        if (!root)
+            return;
+        data.append(reinterpret_cast<char *>(&root->val), sizeof(int));
+        serialize(root->left, data);
+        serialize(root->right, data);
+    }
+
+    TreeNode *deserialize(const string &buffer, int &pos, int minValue, int maxValue)
+    {
+        if (pos == buffer.size())
+            return nullptr; //using pos to check whether buffer ends is better than using char* directly.
+
+        int value;
+        memcpy(&value, &buffer[pos], sizeof(int));
+        if (value < minValue || value > maxValue)
+            return nullptr;
+
+        TreeNode *node = new TreeNode(value);
+        pos += sizeof(int);
+        node->left = deserialize(buffer, pos, minValue, value);
+        node->right = deserialize(buffer, pos, value, maxValue);
+        return node;
+    }
+};
