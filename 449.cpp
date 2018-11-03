@@ -40,42 +40,21 @@ class Codec
     // Encodes a tree to a single string.
     string serialize(TreeNode *root)
     {
-
-        string ans;
-        sHelper(root, ans);
-        return ans;
+        ostringstream out;
+        serialize(root,out);
+        return out.str();
     }
 
     // Decodes your encoded data to tree.
     TreeNode *deserialize(string data)
     {
-        
-    }
-
-  private:
-    void sHelper(TreeNode *root, string &ans)
-    {
-        if (!root)
-        {
-            ans += '.';
-            return;
-        }
-        sHelper(root->left, ans);
-        int t = root->val;
-        if (t < 0)
-        {
-            ans += '-';
-            t = -t;
-        }
-        while (t)
-        {
-            ans += t % 10 + '0';
-            t /= 10;
-        }
-        t += '#';
-        sHelper(root->right, ans);
     }
 };
+private:
+    void serialize(TreeNode *root,ostringstream out)
+    {
+        
+    }
 
 // Your Codec object will be instantiated and called as such:
 // Codec codec;
