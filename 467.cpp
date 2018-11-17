@@ -31,7 +31,7 @@ class Solution
   public:
     int findSubstringInWraproundString(string p)
     {
-        int count[26] = {0};
+        vector<int> count(26, 0);
         int cnt = 1;
         for (int i = 0; i < p.size(); ++i)
         {
