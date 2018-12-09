@@ -1,13 +1,60 @@
-signed __int64 __fastcall fun7(__int64 n1, __int64 s)
-{
-    signed __int64 result; // rax
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <vector>
+#include <map>
+#include <set>
+#include <list>
+#include <unordered_map>
+#include <unordered_set>
+#include <stack>
+#include <queue>
+#include <climits>
+#include <algorithm>
+#include <cmath>
+#include <cctype>
+#include <iterator>
+#include <numeric>
+#include <bitset>
+#include <ctime>
 
-    if (!n1)
-        return 0xFFFFFFFFLL;
-    if (*(_DWORD *)n1 > (signed int)s)
-        return 2 * (unsigned int)fun7(*(_QWORD *)(n1 + 8), s);
-    result = 0LL;
-    if (*(_DWORD *)n1 != (_DWORD)s)
-        result = 2 * (unsigned int)fun7(*(_QWORD *)(n1 + 16), s) + 1;
-    return result;
-}
+using namespace std;
+
+static int __initialSetup = [] {
+    ios::sync_with_stdio(false); // toggle off cout & cin, instead, use printf & scanf
+    cin.tie(nullptr);            // untie cin & cout
+    return 0;
+}();
+
+class Solution
+{
+  public:
+    int minDeletionSize(vector<string> &A)
+    {
+        int count = 0;
+        for (int i = 0; i < A[0].size(); ++i)
+        {
+            vector<int> rm;
+            bool flag = true, allNotEqual = false;
+            for (int j = 0; j < A.size() - 1 && flag; ++j)
+            {
+                if (A[j][i] != A[j + 1][i])
+                {
+                }
+                if (A[j][i] > A[j + 1][i])
+                {
+                    ++count;
+                    flag = false;
+                }
+                else if (A[j][i] == A[j + 1][i])
+                    allNotEqual = false;
+                if (flag && allNotEqual)
+                    return count;
+            }
+            for (int i : rm)
+                A.erase(A.begin() + i);
+            rm.clear();
+        }
+        return count;
+    }
+};
