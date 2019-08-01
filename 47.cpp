@@ -5,6 +5,7 @@
 #include <map>
 #include <set>
 #include <list>
+#include<vector>
 #include <unordered_map>
 #include <unordered_set>
 #include <stack>
@@ -19,81 +20,33 @@
 
 using namespace std;
 
-static int __initialSetup = [] {
-    ios::sync_with_stdio(false); // toggle off cout & cin, instead, use printf & scanf
-    cin.tie(nullptr);            // untie cin & cout
-    return 0;
+static int __initialSetup = []() {
+	ios::sync_with_stdio(false); // toggle off cout & cin, instead, use printf & scanf
+	cin.tie(nullptr);            // untie cin & cout
+	return 0;
 }();
+
 
 class Solution
 {
-    vector<vector<int>> ans;
-    unordered_set<int> s;
-
-  public:
-    vector<vector<int>> permuteUnique(vector<int> &nums)
-    {
-        sort(nums.begin(), nums.end());
-        if (nums.empty())
-            return ans;
-        helper(nums, 0);
-        return ans;
-    }
-
-  private:
-    void helper(vector<int> &nums, int pos)
-    {
-        if (pos == nums.size())
-        {
-            ans.push_back(nums);
-            return;
-        }
-        for (int i = pos; i < nums.size(); ++i)
-            if (!s.count(i))
-            {
-                s.insert(i);
-                swap(nums[pos], nums[i]);
-                helper(nums, pos + 1);
-                swap(nums[pos], nums[i]);
-            }
-    }
-};
-
-static int __initialSetup = [] {
-    ios::sync_with_stdio(false); // toggle off cout & cin, instead, use printf & scanf
-    cin.tie(nullptr);            // untie cin & cout
-    return 0;
-}();
-
-class Solution
-{
-    vector<vector<int>> ans;
-
-  public:
-    vector<vector<int>> permuteUnique(vector<int> &nums)
-    {
-        sort(nums.begin(), nums.end());
-        if (nums.empty())
-            return ans;
-        helper(nums, 0);
-        return ans;
-    }
-
-  private:
-    void helper(vector<int> &nums, int pos)
-    {
-        if (pos == nums.size())
-        {
-            ans.push_back(nums);
-            return;
-        }
-        for (int i = pos; i < nums.size(); ++i)
-        {
-            if(i!=pos&&nums[i]==nums[pos])
-                continue;
-            swap(nums[pos], nums[i]);
-            helper(nums, pos + 1);
-            swap(nums[pos], nums[i]);
-        }
-    }
+public:
+	void recursion(vector<int> num, int i, int j, vector<vector<int> >& res)
+	{
+		if (i == j - 1) {
+			res.push_back(num);
+			return;
+		}
+		for (int k = i; k < j; k++) {
+			if (i != k && num[i] == num[k]) continue;
+			swap(num[i], num[k]);
+			recursion(num, i + 1, j, res);
+		}
+	}
+	vector<vector<int> > permuteUnique(vector<int>& num)
+	{
+		sort(num.begin(), num.end());
+		vector<vector<int> >res;
+		recursion(num, 0, num.size(), res);
+		return res;
+	}
 };
